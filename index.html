@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Predictor</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#E2E8F0"/>
+                    <path d="M6 7L12 14L18 7" stroke="#1A202C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 14V20" stroke="#1A202C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>LeadPredictor</span>
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <select class="custom-select">
+                    <option>🇺🇸 English</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Currency</label>
+                <select class="custom-select">
+                    <option>$ US Dollar</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Campaign Start</label>
+                <input type="date" id="start-date" class="custom-input" value="2026-05-08">
+            </div>
+
+            <div class="form-group">
+                <label>Campaign End</label>
+                <input type="date" id="end-date" class="custom-input" value="2026-11-04">
+            </div>
+
+            <div class="form-group">
+                <label>Total Revenue</label>
+                <div class="input-with-icon">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="revenue" class="custom-input" value="10000" min="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Avg. Order Value</label>
+                <div class="input-with-icon">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="aov" class="custom-input" value="1000" min="1">
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-section">
+                <!-- Chart Panel -->
+                <div class="panel chart-panel">
+                    <div class="chart-container">
+                        <div class="y-axis-labels" id="y-axis">
+                            <!-- Populated by JS -->
+                        </div>
+                        <div class="chart-area" id="chart-area">
+                            <!-- Background Grid -->
+                            <div class="grid-lines" id="grid-lines">
+                                <!-- Populated by JS -->
+                            </div>
+                            <!-- Bars and Tooltip -->
+                            <div class="bars-container" id="bars-container">
+                                <!-- Populated by JS -->
+                            </div>
+                            <!-- Custom Tooltip -->
+                            <div id="chart-tooltip" class="chart-tooltip">
+                                <div id="tt-month">Month #3</div>
+                                <div id="tt-stats"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="x-axis-labels-container">
+                        <div class="x-axis-spacer"></div>
+                        <div class="x-axis-labels" id="x-axis">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card card-prospects">
+                        <div class="card-header">
+                            <span class="card-icon">📁</span> Prospects
+                            <span class="card-percent">100%</span>
+                        </div>
+                        <div class="card-value" id="val-prospects">125</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-prospects" style="width: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="card card-leads">
+                        <div class="card-header">
+                            <span class="card-icon">👤</span> Leads
+                            <span class="card-percent" id="pct-leads">20%</span>
+                        </div>
+                        <div class="card-value" id="val-leads">25</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-leads" id="bar-leads" style="width: 20%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="card card-customers">
+                        <div class="card-header">
+                            <span class="card-icon">🏆</span> Customers
+                            <span class="card-percent" id="pct-customers">8%</span>
+                        </div>
+                        <div class="card-value" id="val-customers">10</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar bar-customers" id="bar-customers" style="width: 8%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section (Sliders) -->
+            <div class="panel sliders-panel">
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <label>Lead Response Rate</label>
+                    </div>
+                    <input type="range" id="lead-rate" class="custom-slider" min="1" max="100" step="0.5" value="40">
+                    <div class="slider-value-row">
+                        <span id="lead-rate-val">40.00%</span>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <label>Prospect Response Rate</label>
+                    </div>
+                    <input type="range" id="prospect-rate" class="custom-slider" min="1" max="100" step="0.5" value="20">
+                    <div class="slider-value-row">
+                        <span id="prospect-rate-val">20.00%</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
