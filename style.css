@@ -201,6 +201,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 
 .x-axis-labels span {
