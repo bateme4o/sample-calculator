@@ -63,13 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Grid line
             const line = document.createElement('div');
             line.className = 'grid-line';
-            line.style.left = leftPct + '%';
+            line.style.setProperty('--grid-left', leftPct + '%');
             gridLines.appendChild(line);
 
             // Label
             const lbl = document.createElement('span');
-            lbl.style.position = 'absolute';
-            lbl.style.left = leftPct + '%';
+            lbl.className = 'x-axis-lbl';
+            lbl.style.setProperty('--grid-left', leftPct + '%');
             lbl.innerText = v + ' people';
             xAxis.appendChild(lbl);
         }
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pctLeads.innerText = `${pLeads}%`;
         pctCustomers.innerText = `${pCust}%`;
 
-        barLeads.style.width = `${pLeads}%`;
-        barCustomers.style.width = `${pCust}%`;
+        barLeads.style.setProperty('--bar-w', `${pLeads}%`);
+        barCustomers.style.setProperty('--bar-w', `${pCust}%`);
     }
 
     function drawChart(data, months) {
@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const chartAxisLabel = document.createElement('span');
         chartAxisLabel.className = 'axis-title';
         chartAxisLabel.innerText = 'Months';
-        chartAxisLabel.style.transform = 'rotate(-90deg) translateX(-60px) translateY(-10px)';
         yAxis.appendChild(chartAxisLabel);
 
         const currentChartMax = generateGridAndLabels(data.prospects);
@@ -126,11 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for(let i=1; i<=months; i++) {
             // Y-axis label
             const l = document.createElement('div');
-            l.style.flex = 1;
-            l.style.display = 'flex';
-            l.style.alignItems = 'center';
-            l.style.fontSize = '12px';
-            l.style.color = '#94A3B8';
+            l.className = 'y-axis-lbl';
             l.innerText = i + '-';
             yAxis.appendChild(l);
 
@@ -146,11 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const group = document.createElement('div');
             group.className = 'bar-group';
+            group.style.setProperty('--wp', `${wP}%`);
+            group.style.setProperty('--wl', `${wL}%`);
+            group.style.setProperty('--wc', `${wC}%`);
 
             group.innerHTML = `
-                <div class="bar bar-p" style="width: ${wP}%"></div>
-                <div class="bar bar-l" style="width: ${wL}%"></div>
-                <div class="bar bar-c" style="width: ${wC}%"></div>
+                <div class="bar bar-p"></div>
+                <div class="bar bar-l"></div>
+                <div class="bar bar-c"></div>
             `;
 
             // Hover tooltip logic
@@ -158,9 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = group.getBoundingClientRect();
                 const parentRect = barsContainer.getBoundingClientRect();
                 
-                tooltip.style.opacity = '1';
-                tooltip.style.top = (rect.top - parentRect.top + 20) + 'px';
-                tooltip.style.left = (rect.width * (wP/100) + 15) + 'px'; // approximate position near end of prospects bar
+                tooltip.classList.add('visible');
+                tooltip.style.setProperty('--tt-top', (rect.top - parentRect.top + 20) + 'px');
+                tooltip.style.setProperty('--tt-left', (rect.width * (wP/100) + 15) + 'px'); // approximate position near end of prospects bar
 
                 document.getElementById('tt-month').innerText = `Month #${i}`;
                 document.getElementById('tt-stats').innerHTML = `
@@ -172,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             group.addEventListener('mousemove', (e) => {
                 const parentRect = barsContainer.getBoundingClientRect();
-                tooltip.style.left = (e.clientX - parentRect.left + 15) + 'px';
-                tooltip.style.top = (e.clientY - parentRect.top - 20) + 'px';
+                tooltip.style.setProperty('--tt-left', (e.clientX - parentRect.left + 15) + 'px');
+                tooltip.style.setProperty('--tt-top', (e.clientY - parentRect.top - 20) + 'px');
             });
 
             group.addEventListener('mouseleave', () => {
-                tooltip.style.opacity = '0';
+                tooltip.classList.remove('visible');
             });
 
             barsContainer.appendChild(group);

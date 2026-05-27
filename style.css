@@ -159,8 +159,8 @@ body {
     display: flex;
     align-items: center;
 }
-.y-axis-labels span .axis-title {
-    transform: rotate(-90deg);
+.y-axis-labels span.axis-title {
+    transform: rotate(-90deg) translateX(-60px) translateY(-10px);
     position: absolute;
     left: -20px;
 }
@@ -184,6 +184,8 @@ body {
     width: 1px;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.05);
+    position: absolute;
+    left: var(--grid-left, 0%);
 }
 
 .x-axis-labels-container {
@@ -205,6 +207,19 @@ body {
     font-size: 10px;
     color: #A0AEC0;
     transform: translateX(-50%);
+}
+
+.x-axis-lbl {
+    position: absolute;
+    left: var(--grid-left, 0%);
+}
+
+.y-axis-lbl {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #94A3B8;
 }
 
 .bars-container {
@@ -232,9 +247,9 @@ body {
     transition: width 0.3s ease;
 }
 
-.bar-p { background-color: #64748B; z-index: 1; }
-.bar-l { background-color: #94A3B8; z-index: 2; }
-.bar-c { background-color: #CBD5E1; z-index: 3; }
+.bar-p { background-color: #64748B; z-index: 1; width: var(--wp, 0%); }
+.bar-l { background-color: #94A3B8; z-index: 2; width: var(--wl, 0%); }
+.bar-c { background-color: #CBD5E1; z-index: 3; width: var(--wc, 0%); }
 
 .bar-group:hover .bar-p { filter: brightness(1.2); }
 
@@ -250,6 +265,12 @@ body {
     opacity: 0;
     transition: opacity 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    top: var(--tt-top, 0);
+    left: var(--tt-left, 0);
+}
+
+.chart-tooltip.visible {
+    opacity: 1;
 }
 
 #tt-month {
@@ -322,6 +343,11 @@ body {
     background-color: #FFFFFF;
     border-radius: 4px;
     transition: width 0.3s ease;
+    width: var(--bar-w, 0%);
+}
+
+.bar-prospects {
+    width: 100%;
 }
 
 .card-customers .progress-bar {
